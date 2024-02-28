@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Form</title>
+</head>
+<body>
+    <h1>Request Form</h1>
+    <form id="requestForm">
+        <label for="fieldName">Field Name:</label><br>
+        <input type="text" id="fieldName" name="fieldName"><br><br>
+        <label for="fieldValue">Field Value:</label><br>
+        <input type="text" id="fieldValue" name="fieldValue"><br><br>
+        <input type="submit" value="Submit" onclick="submitForm()">
+    </form>
+
+    <script>
+        function submitForm() {
+            var fieldName = document.getElementById("fieldName").value;
+            var fieldValue = document.getElementById("fieldValue").value;
+
+            var data = {
+                "fieldName": fieldName,
+                "fieldValue": fieldValue
+            };
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://5afa-8-20-20-246.ngrok-free.app/jobs/98", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log("Request successful");
+                    } else {
+                        console.error("Request failed");
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data)); 
+
+            return false; 
+        }
+    </script>
+</body>
+</html>
